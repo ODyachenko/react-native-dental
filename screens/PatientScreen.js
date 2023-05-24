@@ -11,17 +11,15 @@ function PatientScreen({ route, navigation }) {
         <PatientName>{name}</PatientName>
         <PatientPhone>{phone}</PatientPhone>
         <PatientAction>
-          {/* <PatientTeeth>Формула зубів</PatientTeeth> */}
           <Button>
             <ButtonText>Формула зубів</ButtonText>
           </Button>
-          {/* <PatientTeeth title="Формула зубів" /> */}
           <CallBtn>
             <FontAwesome name="phone" size={24} color="white" />
           </CallBtn>
         </PatientAction>
       </PatientInfo>
-      <AppointmentsList navigation={navigation} />
+      <AppointmentsList navigation={navigation} route={route} />
     </>
   );
 }

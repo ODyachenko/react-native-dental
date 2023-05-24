@@ -1,15 +1,51 @@
+import { useState } from 'react';
 import { TextInput } from 'react-native';
+import axios from 'axios';
 import styled from 'styled-components';
 
 function EditAppointment() {
+  const [tooth, setTooth] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [cost, setCost] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+
+  async function editData() {
+    await axios.put();
+  }
+
   return (
     <Container>
-      <Field placeholder="Номер зубу" keyboardType="numeric" />
-      <Field placeholder="Діагноз" />
-      <Field placeholder="Ціна" keyboardType="numeric" />
+      <Field
+        value={tooth}
+        onChange={(event) => setTooth(event.target.value)}
+        placeholder="Номер зубу"
+        keyboardType="numeric"
+      />
+      <Field
+        value={diagnosis}
+        onChange={(event) => setDiagnosis(event.target.value)}
+        placeholder="Діагноз"
+      />
+      <Field
+        value={cost}
+        onChange={(event) => setCost(event.target.value)}
+        placeholder="Ціна"
+        keyboardType="numeric"
+      />
       <FieldDate>
-        <Field placeholder="Дата" keyboardType="numeric" />
-        <Field placeholder="Час" keyboardType="numeric" />
+        <Field
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+          placeholder="Дата"
+          keyboardType="numeric"
+        />
+        <Field
+          value={time}
+          onChange={(event) => setTime(event.target.value)}
+          placeholder="Час"
+          keyboardType="numeric"
+        />
       </FieldDate>
       <SaveBtn>
         <SaveBtnText>Зберегти</SaveBtnText>

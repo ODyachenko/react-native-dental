@@ -6,7 +6,14 @@ function Group({ date, patients, navigation }) {
     <GroupWrapper>
       <GroupTitle>{date}</GroupTitle>
       {patients.map((patient) => {
-        return <Patient key={date} {...patient} navigation={navigation} />;
+        return (
+          <Patient
+            key={date}
+            date={date}
+            {...patient}
+            navigation={navigation}
+          />
+        );
       })}
     </GroupWrapper>
   );

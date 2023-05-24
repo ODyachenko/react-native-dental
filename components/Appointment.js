@@ -2,10 +2,12 @@ import { Text } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-function Appointment({ navigation }) {
+function Appointment({ navigation, route }) {
+  const { tooth, diagnosis, time, cost, date } = route.params;
+
   return (
     <AppointmentsItem>
-      <Edit onPress={() => navigation.navigate('Редагувати призначення')}>
+      <Edit onPress={() => navigation.navigate('Edit appointment')}>
         <Svg
           width={4}
           height={18}
@@ -38,7 +40,7 @@ function Appointment({ navigation }) {
             fill="#A3A3A3"
           />
         </Svg>{' '}
-        Зуб: <Text style={{ fontWeight: 700 }}>12</Text>
+        Зуб: <Text style={{ fontWeight: 700 }}>{tooth}</Text>
       </Tooth>
       <Diagnosis>
         <Svg
@@ -54,11 +56,13 @@ function Appointment({ navigation }) {
             fill="#A3A3A3"
           />
         </Svg>{' '}
-        Діагноз: <Text style={{ fontWeight: 700 }}>пульпіт</Text>
+        Діагноз: <Text style={{ fontWeight: 700 }}>{diagnosis}</Text>
       </Diagnosis>
       <AppointmentsInfo>
-        <Date>11.10.2023 - 15:40</Date>
-        <Price>1500 грн</Price>
+        <Date>
+          {date} - {time}
+        </Date>
+        <Price>{cost} грн</Price>
       </AppointmentsInfo>
     </AppointmentsItem>
   );
@@ -72,9 +76,13 @@ const AppointmentsItem = styled.View`
   margin-bottom: 20px;
 `;
 const Edit = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 10px;
   z-index: 100;
 `;
 const Tooth = styled.Text`

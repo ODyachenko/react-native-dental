@@ -2,14 +2,14 @@ import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components';
 import Appointment from './Appointment';
 
-function AppointmentsList({ navigation }) {
+function AppointmentsList({ navigation, route }) {
   return (
     <>
       <Container>
         <Title>Призначення</Title>
-        <Appointment navigation={navigation} />
+        <Appointment navigation={navigation} route={route} />
       </Container>
-      <AddButton>
+      <AddButton onPress={() => navigation.navigate('Add appointment')}>
         <Entypo name="plus" size={30} color="white" />
       </AddButton>
     </>

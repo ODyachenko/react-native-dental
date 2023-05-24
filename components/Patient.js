@@ -6,7 +6,7 @@ function Patient(patient) {
 
   return (
     <GroupItem
-      onPress={() => navigation.navigate('Картка піцієнта', { ...patient })}
+      onPress={() => navigation.navigate('Patient Card', { ...patient })}
     >
       <Avatar source={{ uri: avatar }} />
       <View>
