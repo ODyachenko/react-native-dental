@@ -1,12 +1,12 @@
 import Patient from './Patient';
 import styled from 'styled-components';
 
-function Group({ id, date, patients }) {
+function Group({ date, patients, navigation }) {
   return (
     <GroupWrapper>
       <GroupTitle>{date}</GroupTitle>
       {patients.map((patient) => {
-        return <Patient key={date} {...patient} />;
+        return <Patient key={date} {...patient} navigation={navigation} />;
       })}
     </GroupWrapper>
   );

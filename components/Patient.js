@@ -1,10 +1,14 @@
 import { View } from 'react-native';
 import styled from 'styled-components';
 
-function Patient({ avatar, name, diagnosis, time }) {
+function Patient(patient) {
+  const { avatar, name, diagnosis, time, navigation } = patient;
+
   return (
-    <GroupItem>
-      <Avatar source={avatar} />
+    <GroupItem
+      onPress={() => navigation.navigate('Картка піцієнта', { ...patient })}
+    >
+      <Avatar source={{ uri: avatar }} />
       <View>
         <FullName>{name}</FullName>
         <Diagnosis>{diagnosis}</Diagnosis>
