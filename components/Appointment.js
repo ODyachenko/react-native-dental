@@ -3,7 +3,7 @@ import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
 
 function Appointment({ navigation, route }) {
-  const { tooth, diagnosis, time, cost, date } = route.params;
+  const { dentNumber, diagnosis, time, price, date } = route.params;
 
   return (
     <AppointmentsItem>
@@ -40,7 +40,7 @@ function Appointment({ navigation, route }) {
             fill="#A3A3A3"
           />
         </Svg>{' '}
-        Зуб: <Text style={{ fontWeight: 700 }}>{tooth}</Text>
+        Зуб: <Text style={{ fontWeight: 700 }}>{dentNumber}</Text>
       </Tooth>
       <Diagnosis>
         <Svg
@@ -62,7 +62,7 @@ function Appointment({ navigation, route }) {
         <Date>
           {date} - {time}
         </Date>
-        <Price>{cost} грн</Price>
+        <Price>{price} грн</Price>
       </AppointmentsInfo>
     </AppointmentsItem>
   );

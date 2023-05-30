@@ -1,32 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { RefreshControl } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components';
-import axios from 'axios';
 import Group from '../components/Group';
+import { appointmentsApi } from '../utils';
 
 function HomeScreen({ navigation }) {
   const [patientsList, setPatientsList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchAppointments = () => {
+    setIsLoading(true);
+    appointmentsApi
+      .get()
+      .then(({ data }) => {
+        setPatientsList(data.data);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   useEffect(() => {
-    try {
-      axios('https://646cd8787b42c06c3b2c20b0.mockapi.io/Avatars').then((res) =>
-        setPatientsList(res.data)
-      );
-    } catch (error) {
-      console.error(error.message);
-    }
+    fetchAppointments();
   }, []);
 
   return (
     <>
-      <Container>
-        {patientsList.map((patient) => {
-          return (
-            <Group key={patient.id} {...patient} navigation={navigation} />
-          );
+      <Container
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={fetchAppointments}
+          />
+        }
+      >
+        {patientsList.map((patient, index) => {
+          return <Group key={index} {...patient} navigation={navigation} />;
         })}
       </Container>
-      <AddButton>
+      <AddButton onPress={() => navigation.navigate('Add patient')}>
         <Entypo name="plus" size={30} color="white" />
       </AddButton>
     </>
@@ -35,7 +49,7 @@ function HomeScreen({ navigation }) {
 
 const Container = styled.ScrollView`
   background-color: #fff;
-  padding: 20px 15px 0;
+  padding: 20px 0 0;
   margin: 0 0 20px;
 `;
 const AddButton = styled.TouchableOpacity`

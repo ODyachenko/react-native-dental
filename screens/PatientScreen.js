@@ -3,15 +3,15 @@ import { FontAwesome } from '@expo/vector-icons';
 import AppointmentsList from '../components/AppointmentsList';
 
 function PatientScreen({ route, navigation }) {
-  const { name, phone } = route.params;
+  const { fullname, phone } = route.params.patient;
 
   return (
     <>
       <PatientInfo>
-        <PatientName>{name}</PatientName>
+        <PatientName>{fullname}</PatientName>
         <PatientPhone>{phone}</PatientPhone>
         <PatientAction>
-          <Button>
+          <Button onPress={() => navigation.navigate('Dental formula')}>
             <ButtonText>Формула зубів</ButtonText>
           </Button>
           <CallBtn>

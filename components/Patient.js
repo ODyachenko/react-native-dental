@@ -1,16 +1,18 @@
+import { Avatar } from '@react-native-material/core';
 import { View } from 'react-native';
 import styled from 'styled-components';
 
 function Patient(patient) {
-  const { avatar, name, diagnosis, time, navigation } = patient;
+  const { diagnosis, time, navigation } = patient;
+  const { fullname } = patient.patient;
 
   return (
     <GroupItem
       onPress={() => navigation.navigate('Patient Card', { ...patient })}
     >
-      <Avatar source={{ uri: avatar }} />
+      <Avatar style={{ marginRight: 15 }} label={fullname} autoColor />
       <View>
-        <FullName>{name}</FullName>
+        <FullName>{fullname}</FullName>
         <Diagnosis>{diagnosis}</Diagnosis>
       </View>
       <Time>{time}</Time>
@@ -22,17 +24,11 @@ const GroupItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   border-bottom-width: 1px;
-  border-color: #f3f3f3
-  padding-bottom: 20px;
+  border-color: #f3f3f3;
+  padding: 0 15px 20px;
   margin-bottom: 20px;
 `;
-const Avatar = styled.Image`
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 20px;
-  margin-right: 15px;
-`;
+
 const FullName = styled.Text`
   font-size: 16px;
   line-height: 16px;

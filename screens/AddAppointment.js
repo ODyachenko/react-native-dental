@@ -1,16 +1,75 @@
+import { useState } from 'react';
+import { TextInput } from '@react-native-material/core';
+import { appointmentsApi } from '../utils';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components';
 
-function AddAppointment() {
+function AddAppointment({ route, navigation }) {
+  const [dentNumber, setDentNumber] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [price, setPrice] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const { _id } = route.params;
+
+  function onPressSave() {
+    const values = {
+      dentNumber: Number(dentNumber),
+      diagnosis,
+      price: Number(price),
+      date,
+      time,
+      _id,
+    };
+    appointmentsApi
+      .add(values)
+      .then((res) => console.log(res))
+      .catch((error) => console.error(error.message));
+    // navigation.goBack();
+  }
+
   return (
     <Container>
-      <Field placeholder="Номер зубу" keyboardType="numeric" />
-      <Field placeholder="Діагноз" />
-      <Field placeholder="Ціна" keyboardType="numeric" />
+      <TextInput
+        style={styles.TextInput}
+        value={dentNumber}
+        onChangeText={(text) => setDentNumber(text)}
+        variant="standard"
+        label="Номер зубу"
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.TextInput}
+        value={diagnosis}
+        onChangeText={(text) => setDiagnosis(text)}
+        variant="standard"
+        label="Діагноз"
+      />
+      <TextInput
+        style={styles.TextInput}
+        value={price}
+        onChangeText={(text) => setPrice(text)}
+        variant="standard"
+        label="Ціна"
+        keyboardType="numeric"
+      />
       <FieldDate>
-        <Field placeholder="Дата" keyboardType="numeric" />
-        <Field placeholder="Час" keyboardType="numeric" />
+        <TextInput
+          style={styles.TextInput}
+          value={date}
+          onChangeText={(text) => setDate(text)}
+          variant="standard"
+          label="Дата"
+        />
+        <TextInput
+          style={styles.TextInput}
+          value={time}
+          onChangeText={(text) => setTime(text)}
+          variant="standard"
+          label="Час"
+        />
       </FieldDate>
-      <SaveBtn>
+      <SaveBtn onPress={onPressSave}>
         <SaveBtnText>Додати</SaveBtnText>
       </SaveBtn>
     </Container>
@@ -20,14 +79,6 @@ function AddAppointment() {
 const Container = styled.ScrollView`
   background: #fff;
   padding: 20px 15px;
-`;
-const Field = styled.TextInput`
-  min-width: 160px
-  font-size: 16px;
-  padding: 10px;
-  border-bottom-width: 1px;
-  border-color: #f0f0f0;
-  margin-bottom: 20px;
 `;
 const FieldDate = styled.View`
   display: flex;
@@ -46,5 +97,11 @@ const SaveBtnText = styled.Text`
   color: #fff;
   text-align: center;
 `;
+const styles = StyleSheet.create({
+  TextInput: {
+    minWidth: 160,
+    marginBottom: 20,
+  },
+});
 
 export default AddAppointment;

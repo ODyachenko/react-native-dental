@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { TextInput } from '@react-native-material/core';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -10,44 +11,60 @@ function EditAppointment() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
-  async function editData() {
-    await axios.put();
+  function onPressSave() {
+    const data = {
+      tooth,
+      diagnosis,
+      cost,
+      date,
+      time,
+    };
+
+    console.log(data);
   }
 
   return (
     <Container>
-      <Field
+      <TextInput
+        style={styles.TextInput}
         value={tooth}
-        onChange={(event) => setTooth(event.target.value)}
-        placeholder="Номер зубу"
+        onChangeText={(text) => setTooth(text)}
+        variant="standard"
+        label="Номер зубу"
         keyboardType="numeric"
       />
-      <Field
+      <TextInput
+        style={styles.TextInput}
         value={diagnosis}
-        onChange={(event) => setDiagnosis(event.target.value)}
-        placeholder="Діагноз"
+        onChangeText={(text) => setDiagnosis(text)}
+        variant="standard"
+        label="Діагноз"
       />
-      <Field
+      <TextInput
+        style={styles.TextInput}
         value={cost}
-        onChange={(event) => setCost(event.target.value)}
-        placeholder="Ціна"
+        onChangeText={(text) => setCost(text)}
+        variant="standard"
+        label="Ціна"
         keyboardType="numeric"
       />
       <FieldDate>
-        <Field
+        <TextInput
+          style={styles.TextInput}
           value={date}
-          onChange={(event) => setDate(event.target.value)}
-          placeholder="Дата"
-          keyboardType="numeric"
+          onChangeText={(text) => setDate(text)}
+          variant="standard"
+          label="Дата"
         />
-        <Field
+        <TextInput
+          style={styles.TextInput}
           value={time}
-          onChange={(event) => setTime(event.target.value)}
-          placeholder="Час"
-          keyboardType="numeric"
+          onChangeText={(text) => setTime(text)}
+          variant="standard"
+          label="Час"
         />
       </FieldDate>
-      <SaveBtn>
+      <SaveBtn onPress={onPressSave}>
         <SaveBtnText>Зберегти</SaveBtnText>
       </SaveBtn>
     </Container>
@@ -58,15 +75,7 @@ const Container = styled.ScrollView`
   background: #fff;
   padding: 20px 15px;
 `;
-const Field = styled.TextInput`
-  min-width: 160px
-  font-size: 16px;
-  /* font-weight: 700; */
-  padding: 10px;
-  border-bottom-width: 1px;
-  border-color: #f0f0f0;
-  margin-bottom: 20px;
-`;
+
 const FieldDate = styled.View`
   display: flex;
   flex-direction: row;
@@ -84,5 +93,12 @@ const SaveBtnText = styled.Text`
   color: #fff;
   text-align: center;
 `;
+
+const styles = StyleSheet.create({
+  TextInput: {
+    minWidth: 160,
+    marginBottom: 20,
+  },
+});
 
 export default EditAppointment;

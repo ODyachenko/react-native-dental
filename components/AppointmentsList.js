@@ -3,13 +3,17 @@ import styled from 'styled-components';
 import Appointment from './Appointment';
 
 function AppointmentsList({ navigation, route }) {
+  const { _id } = route.params;
+
   return (
     <>
       <Container>
         <Title>Призначення</Title>
         <Appointment navigation={navigation} route={route} />
       </Container>
-      <AddButton onPress={() => navigation.navigate('Add appointment')}>
+      <AddButton
+        onPress={() => navigation.navigate('Add appointment', { _id: _id })}
+      >
         <Entypo name="plus" size={30} color="white" />
       </AddButton>
     </>
