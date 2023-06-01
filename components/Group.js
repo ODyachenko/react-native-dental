@@ -1,25 +1,42 @@
 import Swipeable from 'react-native-swipeable';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import styled from 'styled-components';
-import Patient from './Patient';
+import Appointment from './Appointment';
+import { appointmentsApi } from '../utils';
 
-function Group({ title, data, navigation }) {
-  const rightButtons = [
-    <Edit onPress={() => navigation.navigate('Edit appointment')}>
-      <MaterialIcons name="edit" size={27} color="white" />
-    </Edit>,
-    <Delete>
-      <Entypo name="cross" size={30} color="white" />
-    </Delete>,
-  ];
+function Group({ title, data, navigation, fetchAppointments }) {
+  const DeleteAppointment = (id) => {
+    appointmentsApi
+      .remove(id)
+      .then(() => {
+        fetchAppointments();
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  };
 
   return (
     <GroupWrapper>
       <GroupTitle>{title}</GroupTitle>
-      {data.map((patient) => {
+      {data.map((appointment) => {
         return (
-          <Swipeable key={patient.patient_id} rightButtons={rightButtons}>
-            <Patient {...patient} navigation={navigation} />
+          <Swipeable
+            key={appointment.patient_id}
+            rightButtons={[
+              <Edit
+                onPress={() =>
+                  navigation.navigate('Edit appointment', { ...appointment })
+                }
+              >
+                <MaterialIcons name="edit" size={27} color="white" />
+              </Edit>,
+              <Delete onPress={() => DeleteAppointment(appointment._id)}>
+                <Entypo name="cross" size={30} color="white" />
+              </Delete>,
+            ]}
+          >
+            <Appointment {...appointment} navigation={navigation} />
           </Swipeable>
         );
       })}

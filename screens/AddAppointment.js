@@ -14,18 +14,19 @@ function AddAppointment({ route, navigation }) {
 
   function onPressSave() {
     const values = {
+      patient: _id,
       dentNumber: Number(dentNumber),
       diagnosis,
       price: Number(price),
       date,
       time,
-      _id,
     };
+
     appointmentsApi
       .add(values)
       .then((res) => console.log(res))
       .catch((error) => console.error(error.message));
-    // navigation.goBack();
+    navigation.goBack();
   }
 
   return (

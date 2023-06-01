@@ -1,6 +1,6 @@
 import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components';
-import Appointment from './Appointment';
+import PatientAppointment from './PatientAppointment';
 
 function AppointmentsList({ navigation, route }) {
   const { _id } = route.params;
@@ -9,7 +9,7 @@ function AppointmentsList({ navigation, route }) {
     <>
       <Container>
         <Title>Призначення</Title>
-        <Appointment navigation={navigation} route={route} />
+        <PatientAppointment navigation={navigation} route={route} />
       </Container>
       <AddButton
         onPress={() => navigation.navigate('Add appointment', { _id: _id })}

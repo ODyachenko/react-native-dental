@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RefreshControl } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import Group from '../components/Group';
 import { appointmentsApi } from '../utils';
 
 function HomeScreen({ navigation }) {
-  const [patientsList, setPatientsList] = useState([]);
+  const [appointmentsList, setAppointmentsList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchAppointments = () => {
@@ -14,7 +14,7 @@ function HomeScreen({ navigation }) {
     appointmentsApi
       .get()
       .then(({ data }) => {
-        setPatientsList(data.data);
+        setAppointmentsList(data.data);
       })
       .catch((error) => {
         console.error(error.message);
@@ -36,11 +36,18 @@ function HomeScreen({ navigation }) {
           />
         }
       >
-        {patientsList.map((patient, index) => {
-          return <Group key={index} {...patient} navigation={navigation} />;
+        {appointmentsList.map((patient, index) => {
+          return (
+            <Group
+              key={index}
+              {...patient}
+              navigation={navigation}
+              fetchAppointments={fetchAppointments}
+            />
+          );
         })}
       </Container>
-      <AddButton onPress={() => navigation.navigate('Add patient')}>
+      <AddButton onPress={() => navigation.navigate('Patients list')}>
         <Entypo name="plus" size={30} color="white" />
       </AddButton>
     </>

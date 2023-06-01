@@ -4,8 +4,10 @@ import AddAppointment from './screens/AddAppointment';
 import AddPatient from './screens/AddPatient';
 import DentalFormula from './screens/DentalFormula';
 import EditAppointment from './screens/EditAppointment';
+import EditPatient from './screens/EditPatient';
 import HomeScreen from './screens/HomeScreen';
 import PatientScreen from './screens/PatientScreen';
+import PatientsList from './screens/PatientsList';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,12 +18,22 @@ export default function App() {
         <Stack.Screen
           name="Patients"
           component={HomeScreen}
+          options={{ title: 'Прийоми' }}
+        />
+        <Stack.Screen
+          name="Patients list"
+          component={PatientsList}
           options={{ title: 'Пацієнти' }}
         />
         <Stack.Screen
           name="Add patient"
           component={AddPatient}
           options={{ title: 'Додати пацієнта' }}
+        />
+        <Stack.Screen
+          name="Edit patient"
+          component={EditPatient}
+          options={{ title: 'Редагувати піцієнта' }}
         />
         <Stack.Screen
           name="Patient Card"

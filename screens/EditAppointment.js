@@ -4,46 +4,46 @@ import { TextInput } from '@react-native-material/core';
 import axios from 'axios';
 import styled from 'styled-components';
 
-function EditAppointment() {
-  const [tooth, setTooth] = useState('');
-  const [diagnosis, setDiagnosis] = useState('');
-  const [cost, setCost] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+function EditAppointment({ route }) {
+  const { dentNumber, diagnosis, price, date, time } = route.params;
+
+  const [dentNumberValue, setDentNumberValue] = useState(String(dentNumber));
+  const [diagnosisValue, setDiagnosisValue] = useState(diagnosis);
+  const [priceValue, setPriceValue] = useState(String(price));
+  const [dateValue, setDateValue] = useState(date);
+  const [timeValue, setTimeValue] = useState(time);
 
   function onPressSave() {
     const data = {
-      tooth,
-      diagnosis,
-      cost,
-      date,
-      time,
+      dentNumber: Number(dentNumberValue),
+      diagnosis: diagnosisValue,
+      price: Number(priceValue),
+      date: dateValue,
+      time: timeValue,
     };
-
-    console.log(data);
   }
 
   return (
     <Container>
       <TextInput
         style={styles.TextInput}
-        value={tooth}
-        onChangeText={(text) => setTooth(text)}
+        value={dentNumberValue}
+        onChangeText={(text) => setDentNumberValue(text)}
         variant="standard"
         label="Номер зубу"
         keyboardType="numeric"
       />
       <TextInput
         style={styles.TextInput}
-        value={diagnosis}
-        onChangeText={(text) => setDiagnosis(text)}
+        value={diagnosisValue}
+        onChangeText={(text) => setDiagnosisValue(text)}
         variant="standard"
         label="Діагноз"
       />
       <TextInput
         style={styles.TextInput}
-        value={cost}
-        onChangeText={(text) => setCost(text)}
+        value={priceValue}
+        onChangeText={(text) => setPriceValue(text)}
         variant="standard"
         label="Ціна"
         keyboardType="numeric"
@@ -51,15 +51,15 @@ function EditAppointment() {
       <FieldDate>
         <TextInput
           style={styles.TextInput}
-          value={date}
-          onChangeText={(text) => setDate(text)}
+          value={dateValue}
+          onChangeText={(text) => setDateValue(text)}
           variant="standard"
           label="Дата"
         />
         <TextInput
           style={styles.TextInput}
-          value={time}
-          onChangeText={(text) => setTime(text)}
+          value={timeValue}
+          onChangeText={(text) => setTimeValue(text)}
           variant="standard"
           label="Час"
         />

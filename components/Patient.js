@@ -2,25 +2,21 @@ import { Avatar } from '@react-native-material/core';
 import { View } from 'react-native';
 import styled from 'styled-components';
 
-function Patient(patient) {
-  const { diagnosis, time, navigation } = patient;
-  const { fullname } = patient.patient;
-
+function Patient({ _id, fullname, phone, navigation }) {
   return (
-    <GroupItem
-      onPress={() => navigation.navigate('Patient Card', { ...patient })}
+    <PatientItem
+      onPress={() => navigation.navigate('Add appointment', { _id })}
     >
       <Avatar style={{ marginRight: 15 }} label={fullname} autoColor />
       <View>
         <FullName>{fullname}</FullName>
-        <Diagnosis>{diagnosis}</Diagnosis>
+        <Phone>{phone}</Phone>
       </View>
-      <Time>{time}</Time>
-    </GroupItem>
+    </PatientItem>
   );
 }
 
-const GroupItem = styled.TouchableOpacity`
+const PatientItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   border-bottom-width: 1px;
@@ -35,23 +31,6 @@ const FullName = styled.Text`
   font-weight: 600;
   margin-bottom: 3px;
 `;
-const Diagnosis = styled.Text`
-  font-size: 16px;
-  color: #8b979f;
-`;
-const Time = styled.Text`
-  ${(props) =>
-    props.active
-      ? 'background-color: #2A86FF; color: #fff'
-      : 'background-color: #e9f5ff; color: #4294ff'}
-
-  width: 70px;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-  border-radius: 18px;
-  padding: 8px;
-  margin-left: auto;
-`;
+const Phone = styled.Text``;
 
 export default Patient;
